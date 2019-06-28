@@ -20,24 +20,27 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ey%=r-b!6w^@bbe-)!tz&$a=ew#8c4%6+e2(2dh=acp&=-1k%#'
+SECRET_KEY = 'o3c&$#yz7^)e4pgy=(7(8#leq-5b_q2e6aquw@1256$%ss*p@9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+in_production = bool(os.getenv('PRODUCTION'))
+DEBUG = not in_production
 
 ALLOWED_HOSTS = []
 
 
-# Application definition
+# Application information
 
 INSTALLED_APPS = [
+    'registration', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig',
+    'core.apps.CoreConfig',   
+    
 ]
 
 
@@ -56,7 +59,9 @@ ROOT_URLCONF = 'freeshelf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+             os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -115,12 +120,19 @@ USE_L10N = True
 
 USE_TZ = True
 
+INTERNAL_IPS = ['127.0.0.1']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
-# Redirect to home URL after login (Default redirects to /accounts/profile/)
+# Configure Django App for Heroku.
+# import django_heroku
+# django_heroku.settings(locals())
+
+
+# Registration settings
 LOGIN_REDIRECT_URL = '/'
+
 

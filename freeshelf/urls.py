@@ -13,36 +13,36 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls import include, url
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from django.views.generic import RedirectView
+from core import views as core_views
 
 urlpatterns = [
+    path('', core_views.index, name='index'),
+    path('', RedirectView.as_view(url='/index/', permanent=True)),
+    path('books/', core_views.BookListView.as_view(), name='books'),
+    path('book/<int:pk>', core_views.BookDetailView.as_view(), name='book-detail'),
+    path('category/<int:pk>', core_views.CategoriesDetailView.as_view(), name='category-detail'),
     path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.simple.urls')),
 ]
 
-# Use include() to add paths from the core application 
-from django.urls import include
-from django.urls import path
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [
+#         path('__debug__/', include(debug_toolbar.urls)),
 
-urlpatterns += [
-    path('core/', include('core.urls')),
-]
+        # For django versions before 2.0:
+        # url(r'^__debug__/', include(debug_toolbar.urls)),
 
-#Add URL maps to redirect the base URL to our application
-from django.views.generic import RedirectView
-urlpatterns += [
-    path('', RedirectView.as_view(url='/core/', permanent=True)),
-]
+    # ] + urlpatterns
 
 # Use static() to add url mapping to serve static files during development (only)
-from django.conf import settings
+
 from django.conf.urls.static import static
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
-#Add Django site authentication urls (for login, logout, password management)
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
-]
 

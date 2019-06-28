@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -21,12 +22,19 @@ class Book(models.Model):
     author = models.CharField(max_length=200, null=True)
     
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
+    
     isbn = models.CharField('ISBN', max_length=13, help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
     
     category = models.ManyToManyField(Category, help_text='Select a category for this book')
     
     url = models.URLField(max_length=200)
     
+    date_added = models.DateTimeField(auto_now_add=True)
+
+
+    class Meta:
+        ordering = ['date_added']
+
     def __str__(self):
         """String for representing the Model object."""
         return self.title
@@ -38,5 +46,6 @@ class Book(models.Model):
 
 
 
+    
 
 

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="title">Title: {{ book.title }}</h1>
+
+  <p><strong>Summary:</strong> {{ book.summary }}</p>
+  <p><strong>URL:</strong><a href="{{ book.url }}"> {{ book.url }}</a></p>
+  <p><strong>Category:</strong> {{ book.category.get }}</p>  
+
+  </div>
+{% endblock %}
+
