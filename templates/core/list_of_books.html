@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Freeshelf Book List:</h1>
+<h1>List of Books:</h1>
 <ul>
-    {% for book in book_list %}
+    {% for book in list_of_books %}
     <p><br>
       <a href="{{ book.get_absolute_url }}">{{ book.title}}</a> by {{ book.author }}
     <p>
-      |  Added to Database: {{ book.date_added }}  |  Category: {{ book.category.get }}
     </p>
     </p>
     {% endfor %}   
 </ul>  
 {% endblock %}
+
 

@@ -3,7 +3,7 @@
   <h1>Freeshelf</h1>
   <p>Welcome to Freeshelf, developed by <em>Greg Dickson</em>!</p>
   <br>
-  <p>Freeshelf has the following record counts:</p>
+  <p>Freeshelf is a Library that contains the following:</p>
   <ul>
     <li><strong>Books:</strong> {{ num_books }}</li>
     <li><strong>Categories:</strong> {{ num_categories }}</li>
@@ -11,8 +11,7 @@
   <div>
     <div class="category_list">
       <h4 class="title">Books by Category: 
-        {% if different_categories %}
-          {% for category in different_categories %}
+        
               <a href="{{ category.get_absolute_url }}">{{ category.category }}</a>
             {% if not forloop.last %} | {% endif %}
           {% endfor %}
@@ -21,21 +20,24 @@
     </div>
   </div>
 
-  <h2>Most Recently Added Books:</h2>
+  <h2>Recently Added Books:</h2>
   <ul>
-      {% for book in book_list %}
+      {% for book in list_of_books %}
       <p><br>
         <a href="{{ book.url }}">{{ book.title}}</a> by {{ book.author }}
       <p>
         {{ book.summary }}
       </p>
       <p>
-        |  Added to Database: {{ book.date_added }}  |  Category: {{ book.category.get }}
       </p>
       </p>
       {% endfor %}
   </ul>
 {% endblock %}
+
+
+
+
 
 
 
