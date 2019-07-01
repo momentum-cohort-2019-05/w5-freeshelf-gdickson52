@@ -3,9 +3,10 @@
 {% block content %}
 <h1>List of Books:</h1>
 <ul>
-    {% for book in list_of_books %}
+    {% for book in book_list %}
     <p><br>
       <a href="{{ book.get_absolute_url }}">{{ book.title}}</a> by {{ book.author }}
+    {{book.date_added}}
     <p>
     </p>
     </p>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -31,9 +32,13 @@ class Book(models.Model):
     
     date_added = models.DateTimeField(auto_now_add=True)
 
+    favorited = models.ManyToManyField(User, through='favorite')
+
+
+
 
     class Meta:
-        ordering = ['date_added']
+        ordering = ['-date_added']
 
     def __str__(self):
         """String for representing the Model object."""
@@ -43,7 +48,18 @@ class Book(models.Model):
         """Returns the url to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])        
 
+class Favorite(models.Model):
+    """A user can select their favorite books"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user_selected = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-user_selected']
+    
+    def __str__(self):
+        """String to represent the object that is favorited."""
+        return f"{self.user.username} - {self.book.title}"
 
 
     

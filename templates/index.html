@@ -11,7 +11,8 @@
   <div>
     <div class="category_list">
       <h4 class="title">Books by Category: 
-        
+        {%if categories%}
+          {% for categories in categories %}
               <a href="{{ category.get_absolute_url }}">{{ category.category }}</a>
             {% if not forloop.last %} | {% endif %}
           {% endfor %}
